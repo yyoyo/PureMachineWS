@@ -45,7 +45,6 @@ class WebServiceManager extends WebServiceClient implements ContainerAwareInterf
     public function getSchema($ws)
     {
         if (array_key_exists(strtolower($ws), $this->webServices))
-
             return $this->webServices[strtolower($ws)];
 
         return null;
@@ -77,6 +76,14 @@ class WebServiceManager extends WebServiceClient implements ContainerAwareInterf
         else $nsAnnotation = '';
 
         foreach ($methods as $method) {
+            /*
+             * If the method has no Webservice annotation , exclude it from
+             * the addService building
+             */
+            $webserviceAnnotationsClass = 'PureMachine\Bundle\WebServiceBundle\Service\Annotation\WebService';
+            $wsAnnotations = $ar->getMethodAnnotation($method, $webserviceAnnotationsClass);
+            if(is_null($wsAnnotations)) continue;
+
             //Lookup the namespace
             $nsAnnotation = $ar->getMethodAnnotation($method, $daClass);
             if ($nsAnnotation) $namespace = $nsAnnotation->value;
