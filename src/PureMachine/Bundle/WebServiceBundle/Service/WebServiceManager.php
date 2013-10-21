@@ -191,6 +191,9 @@ class WebServiceManager extends WebServiceClient implements ContainerAwareInterf
             return $this->buildErrorResponse($webServiceName, $version, $e);
         }
 
+        //If Symfony - check if the Target Store class implements the ContainerAwareInterface
+        if($this->isSymfony() && ($inputData instanceof ContainerAwareInterface)) $inputData->setContainer($this->container);
+
         //Validate input value
         try {
             $this->checkType($inputData, $schema['definition']['inputType'],
