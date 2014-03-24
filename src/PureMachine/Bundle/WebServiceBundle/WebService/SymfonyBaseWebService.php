@@ -6,6 +6,7 @@ use JMS\DiExtraBundle\Annotation\Inject;
 use JMS\DiExtraBundle\Annotation\InjectParams;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use JMS\DiExtraBundle\Annotation\Service;// new Service() // PHP Bug
+use JMS\DiExtraBundle\Annotation\Tag;// new Tag(); // PHP Bug
 
 class SymfonyBaseWebService extends BaseWebService implements ContainerAwareInterface
 {
